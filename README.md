@@ -2,7 +2,7 @@
 DevOps on HuaweiCloud
 
 ### 1. Build a docker image based on Jenkins and add libltdl7 library for docker exec
-reference the [Dockerfile-jenkins-2.150.3.libltdl7](blob/master/Dockerfile-jenkins-2.150.3.libltdl7), build it and push to SWR.
+reference the [Dockerfile-jenkins-2.150.3.libltdl7](Dockerfile-jenkins-2.150.3.libltdl7), build it and push to SWR.
 
 ### 2. Install and config Jenkins
 1. Jenins image jenkins-2.150.3.libltdl7
@@ -30,7 +30,7 @@ reference the [Dockerfile-jenkins-2.150.3.libltdl7](blob/master/Dockerfile-jenki
 create a kubeconfig credential in jenkins
 
 ### 6. create a pipeline job
-reference the pipnline script [jenkins-sample.pipeline](blob/master/jenkins-sample.pipeline)
+reference the pipnline script [jenkins-sample.pipeline](jenkins-sample.pipeline)
 
 ### 7. execute the pipeline job
 execute and check the deployment on CCE.
