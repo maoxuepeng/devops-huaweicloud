@@ -1,9 +1,10 @@
 node('master'){
 	stage('Clone') {
 		echo "1.Clone Stage"
-		git url: "https://github.com/cnych/jenkins-demo.git"
+		git url: "https://github.com/ibusybox/jenkins-demo.git"
 		script {
 			build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+            image_pull_secret = 'default-secret'
 		}
 	}
 	stage('Test') {
@@ -22,6 +23,7 @@ node('master'){
     echo "5. Deploy Stage"
     echo "This is a deploy step to test"
     sh "sed -i 's/cnych\\/jenkins-demo:<BUILD_TAG>/swr.ap-southeast-2.myhuaweicloud.com\\/paas-poc\\/jenkins-sample01:${build_tag}/' *.yaml"
+    sh "sed -i 's/<IMAGE_PULL_SECRET>/${image_pull_secret}/' *.yaml"
     sh "cat *.yaml"
     echo "begin to config kubenetes"
     try { 
