@@ -1,0 +1,37 @@
+node('master'){
+	stage('Clone') {
+		echo "1.Clone Stage"
+		git url: "https://github.com/cnych/jenkins-demo.git"
+		script {
+			build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+		}
+	}
+	stage('Test') {
+	echo "2.Test Stage"
+	}
+	stage('Build') {
+		echo "3.Build Docker Image Stage"
+		sh "docker build -t swr.ap-southeast-2.myhuaweicloud.com/paas-poc/jenkins-sample01:${build_tag} ."
+	}
+	stage('Push') {
+		echo "4.Push Docker Image Stage"
+		sh "docker login -u ap-southeast-2@OLEWXUQMRAC8LNMUPSW3 -p 1f31195cba059bae0f79d42aaa39e2cf93b4da44ec7a386a0c3e6d9c154f2db0 swr.ap-southeast-2.myhuaweicloud.com"
+		sh "docker push swr.ap-southeast-2.myhuaweicloud.com/paas-poc/jenkins-sample01:${build_tag}"
+	}
+    stage('Deploy') {
+    echo "5. Deploy Stage"
+    echo "This is a deploy step to test"
+    sh "sed -i 's/cnych\\/jenkins-demo:<BUILD_TAG>/swr.ap-southeast-2.myhuaweicloud.com\\/paas-poc\\/jenkins-sample01:${build_tag}/' *.yaml"
+    sh "cat *.yaml"
+    echo "begin to config kubenetes"
+    try { 
+        kubernetesDeploy(
+            kubeconfigId: "weather2",
+            configs: "k8s.yaml")
+        println "hooray, success"
+    } catch (e) {
+        println "oh no! Deployment failed! "
+        println e
+    }
+	}
+}
