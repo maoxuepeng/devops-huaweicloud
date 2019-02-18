@@ -3,6 +3,14 @@ DevOps on HuaweiCloud
 
 ### 1. Build a docker image based on Jenkins and add libltdl7 library for docker exec
 reference the [Dockerfile-jenkins-2.150.3.libltdl7](Dockerfile-jenkins-2.150.3.libltdl7), build it and push to SWR.
+1. create dockerfile
+2. build docker image
+docker build -t jenkins:2.150.3-libldt7 -f Dockerfile .
+3. tag the image
+docker tag ed92377e7e1d swr.ap-southeast-2.myhuaweicloud.com/xxx/jenkins:2.150.3-libldt7
+4. login to swr
+5. push image
+docker push swr.ap-southeast-2.myhuaweicloud.com/xxx/jenkins:2.150.3-libldt7
 
 ### 2. Install and config Jenkins
 1. Jenins image jenkins-2.150.3.libltdl7
