@@ -12,6 +12,8 @@ docker tag ed92377e7e1d swr.ap-southeast-2.myhuaweicloud.com/xxx/jenkins:2.150.3
 5. push image
 docker push swr.ap-southeast-2.myhuaweicloud.com/xxx/jenkins:2.150.3-libldt7
 
+### run by command not console 
+
 ### 2. Install and config Jenkins
 1. Jenins image jenkins-2.150.3.libltdl7
 2. Enable privileged container
