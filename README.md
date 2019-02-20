@@ -48,6 +48,8 @@ docker push swr.ap-southeast-2.myhuaweicloud.com/xxx/jenkins:2.150.3-libldt7
 ### 5. Import CCE credential to Jenkins
 create a kubeconfig credential in jenkins
 
+### open download file from step4 then mkdir -p ".kube" , under the folder create file "config" then paste the content in the file to "config"
+
 ### 6. create a pipeline job
 reference the pipnline script [jenkins-sample.pipeline](jenkins-sample.pipeline)
 
