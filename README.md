@@ -56,5 +56,13 @@ create a kubeconfig credential in jenkins
 ### 6. create a pipeline job
 reference the pipnline script [jenkins-sample.pipeline](jenkins-sample.pipeline)
 
+### image_pull_secret = 'default-secret'
+         ###   swr_endpoint = 'swr.ap-southeast-2.myhuaweicloud.com'
+         ###   swr_org = 'jdf-thailand'
+         ###   image_name = 'jenkins-demo01'
+         ###   docker_login_username = 'ap-southeast-2@DJZ05XHMUQOUMLAUOZ0C'
+         ###   docker_login_password = '003eb9d6cff68f4a8393dea78f89d99c09c7f386b0bc838e8abd065ab5829902'
+        
+
 ### 7. execute the pipeline job
 execute and check the deployment on CCE.
