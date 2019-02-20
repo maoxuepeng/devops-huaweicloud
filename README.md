@@ -23,6 +23,9 @@ docker push swr.ap-southeast-2.myhuaweicloud.com/xxx/jenkins:2.150.3-libldt7
 5. Login Jenkins, setup first user, install default plugins
 6. Install **Kubernetes Cli** and **[Kubernetes Continuous Deploy](https://wiki.jenkins.io/display/JENKINS/Kubernetes+Continuous+Deploy+Plugin)** plugin
 
+##### Step 1 & 2 are to make sure we have Jenkin version which support SWR integration, we can later update Jenkins but need to make sure the newer version contain libldt library
+
+
 ### 3. Get SWR credential
 1. Prepare the SWR credential from [this guide](https://support-intl.huaweicloud.com/usermanual-swr/swr_01_1000.html)
 2. summary of the setps:
