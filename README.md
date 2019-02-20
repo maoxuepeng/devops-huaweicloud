@@ -34,6 +34,9 @@ docker push swr.ap-southeast-2.myhuaweicloud.com/xxx/jenkins:2.150.3-libldt7
 - execute ```printf "$AK" | openssl dgst -binary -sha256 -hmac "$SK" | od -An -vtx1 | sed 's/[ \n]//g' | sed 'N;s/\n//'```, you will get your login key
 - replace you information into this command: ```docker login -u [Name of the regional project]@[AK] -p [Login key] [Image repository address]```
 
+### Step 3, huawei user can get AK/SK by going to user profile and check "Access Code". Because SWR requires credential and only IAM account is not enough. It requires location, AK and password key  --> at line execute command, it is to get password from SK. To get it, we need to logon to some node in huawei cloud
+
+
 ### 4. Get CCE credential
 1. go to Resource Management -> Cluster Manageent -> Select your destination cluster -> Click More and Kubectl -> On the page click link under "Download the kubectl configuration file"
 
