@@ -129,7 +129,13 @@ kubectl --kubeconfig=kubeconfig-dev.yaml config use-context default
 Try to delete some pod
 
 ```
+kubectl --kubeconfig=kubeconfig-dev.yaml delete pod nginx2-76c669b7c-s2crw
+```
 
+You may got the response of forbidden
+
+```
+Error from server (Forbidden): pods "nginx2-76c669b7c-s2crw" is forbidden: User "system:serviceaccount:default:dev" cannot delete pods in the namespace "default"
 ```
 
 6. import the credential(kubeconfig) to Jenkins
