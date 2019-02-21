@@ -12,7 +12,7 @@ metadata:
   name: jenkins-ingress
 spec:
   rules:
-  - host: jenkins.xxx.com
+  - host: jenkins.cjd.com
     http:
       paths:
       - backend:
@@ -23,5 +23,5 @@ spec:
           ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
   tls:
   - hosts:
-    - jenkins.xxx.com
+    - jenkins.cjd.com
     secretName: nginx-certs  #replace with your certificate secret name

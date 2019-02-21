@@ -83,7 +83,7 @@ status:
 ```
 
 ### 3. create deployments
-
+Reference [templates/deployment-jenkins.yaml](templates/deployment-jenkins.yaml)
 Execute:
 
 ```
@@ -103,7 +103,9 @@ jenkins-8678748768-lvgd7   1/1       Running   0          1m
 
 ### 4. create tls secret for certificates
 
-Maybe you have no certificate yet, you can reference [this guide](http://t.thought.ink/2016/01/23/%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84CA%E6%9C%8D%E5%8A%A1-OpenSSL-CA-%E5%AE%9E%E6%88%98.html) for creating a self-sign CA and signature a test certificate.
+Maybe you have no certificate yet, you can reference [this guide](http://t.thought.ink/2016/01/23/%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84CA%E6%9C%8D%E5%8A%A1-OpenSSL-CA-%E5%AE%9E%E6%88%98.html) for creating a self-sign CA and signature a test certificate. After you created certificate and key, you create the secret on the CCE Web UI is simpler.
+
+Reference [templates/sample-certs.yaml](templates/sample-certs.yaml) 
 
 Execute:
 
@@ -126,7 +128,7 @@ sample-certs          IngressTLS                            2         24s
 ### 5. expose services
 
 - Expose NodePort service
-
+Reference [templates/svc-nodeport-jenkins.yaml](templates/svc-nodeport-jenkins.yaml)
 Exeute:
 
 ```
@@ -142,7 +144,7 @@ jenkins-intra-vpc   NodePort   10.247.168.169   <none>        8080:30950/TCP   2
 ```
 
 - Expose Ingress service to public elb (auto create elb)
-
+Reference [templates/ingress-public-elb-autocreate.yaml](templates/ingress-public-elb-autocreate.yaml)
 Execute:
 
 ```
@@ -158,3 +160,4 @@ jenkins-ingress-public   public.jenkins.com   159.138.234.123   80, 443   16s
 ```
 
 ### 6. enable APM
+[Sample deployment file](templates/deployment-jenkins-apm-enabled.yaml) with APM enabled.

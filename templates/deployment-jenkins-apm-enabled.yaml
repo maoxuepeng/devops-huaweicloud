@@ -6,7 +6,6 @@ metadata:
     description: ""
   labels:
     appgroup: ""
-  name: jenkins
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -35,8 +34,17 @@ spec:
         - name: PAAS_NAMESPACE
           value: nginx
         - name: PAAS_PROJECT_ID
-          value: 7f162be0dc4940bf8458171242f7a88c  #replace to your own project id
-        image: jenkins/jenkins:2.150.3 #replace to your own image
+          value: 7f162be0dc4940bf8458171242f7a88c
+        # APM ENV begin
+        - name: PAAS_MONITORING_GROUP
+          value: jenkins
+        - name: JAVA_TOOL_OPTIONS
+          value: -javaagent:/paas-apm/collectors/pinpoint/pinpoint-bootstrap.jar -Dpinpoint.config=/paas-apm/collectors/pinpoint/pinpoint.config
+            -Duser.stemming.config=/paas-apm/collectors/pinpoint/userStemming.config
+        - name: PAAS_CLUSTER_ID
+          value: 99dce176-2ed6-11e9-9ea5-0255ac101421
+        # APM ENV end
+        image: jenkins/jenkins:2.150.3
         imagePullPolicy: IfNotPresent
         name: container-0
         resources:
@@ -54,9 +62,33 @@ spec:
           readOnly: true
         - mountPath: /var/jenkins_home
           name: cce-evs-jenkins
+        #APM mount path
+        - mountPath: /paas-apm/collectors/pinpoint/
+          name: paas-apm
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: default-secret
+      # APM init container
+      initContainers:
+      - command:
+        - sh
+        - -c
+        - cp -pr /paas-apm/collectors/pinpoint/* /var/init/pinpoint
+        image: 100.125.0.48:20202/op_svc_apm/pinpoint:latest
+        imagePullPolicy: Always
+        name: init-pinpoint
+        resources:
+          limits:
+            cpu: 250m
+            memory: 250Mi
+          requests:
+            cpu: 250m
+            memory: 250Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/init/pinpoint
+          name: paas-apm
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
@@ -78,3 +110,5 @@ spec:
       - name: cce-evs-jenkins
         persistentVolumeClaim:
           claimName: cce-evs-jenkins
+      - emptyDir: {}  #APM volume
+        name: paas-apm
