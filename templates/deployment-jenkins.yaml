@@ -41,8 +41,8 @@ spec:
         name: container-0
         resources:
           limits:
-            cpu: 250m
-            memory: 512Mi
+            cpu: 2000m
+            memory: 4096Mi
           requests:
             cpu: 250m
             memory: 512Mi
