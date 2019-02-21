@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/elb.autocreate: '{"type":"inner"}'
+  labels:
+    isExternal: "true"
+    zone: data
+  name: jenkins-ingress
+spec:
+  rules:
+  - host: jenkins.xxx.com
+    http:
+      paths:
+      - backend:
+          serviceName: jenkins-intra-vpc
+          servicePort: 8080
+        path: /
+        property:
+          ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+  tls:
+  - hosts:
+    - jenkins.xxx.com
+    secretName: nginx-certs

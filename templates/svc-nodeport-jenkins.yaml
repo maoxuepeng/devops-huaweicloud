@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.protal.kubernetes.io/type: NodePort
+  labels:
+    app: jenkins
+    name: jenkins-intra-vpc
+  name: jenkins-intra-vpc
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: cce-service-0
+    nodePort: 30950
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: jenkins
+  sessionAffinity: None
+  type: NodePort

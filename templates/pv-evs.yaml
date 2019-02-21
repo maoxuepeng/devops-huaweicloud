@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    kubernetes.io/createdby: huawei.com/fuxivol-dynamic-provisioner
+    pv.kubernetes.io/bound-by-controller: "yes"
+    pv.kubernetes.io/provisioned-by: flexvolume-huawei.com/fuxivol
+  labels:
+    failure-domain.beta.kubernetes.io/region: ap-southeast-2
+    failure-domain.beta.kubernetes.io/zone: ap-southeast-2a
+  name: pvc-a-b-c-d
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 11Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: cce-evs-jenkins
+    namespace: jenkins  #replace to your own namespace
+    uid: uid-of-pvc  #should replace uid of pvc
+  flexVolume:
+    driver: huawei.com/fuxivol
+    fsType: ext4
+    options:
+      fsType: ext4
+      kubernetes.io/namespace: jenkins #replace to your own namespace
+      volumeID: a-b-c-d
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: sata   #3 types for performance from low to high: sata/sas/ssd

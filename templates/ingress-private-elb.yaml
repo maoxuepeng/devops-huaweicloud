@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/elb.id: 1f2269fe-a117-40cd-8b5e-6332f241c16c
+    kubernetes.io/elb.ip: 192.168.0.139
+    kubernetes.io/elb.port: "443"
+    kubernetes.io/elb.subnet-id: 02895cd6-fe95-48a1-8a9b-46eb090f3f75
+  labels:
+    isExternal: "true"
+    zone: data
+  name: jenkins-ingress
+spec:
+  rules:
+  - host: jenkins.xxx.com
+    http:
+      paths:
+      - backend:
+          serviceName: jenkins-intra-vpc
+          servicePort: 8080
+        path: /
+        property:
+          ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+  tls:
+  - hosts:
+    - jenkins.xxx.com
+    secretName: nginx-certs  #replace with your certificate secret name

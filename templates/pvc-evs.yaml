@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    pv.kubernetes.io/bound-by-controller: "yes"
+    volume.beta.kubernetes.io/storage-class: sata
+    volume.beta.kubernetes.io/storage-provisioner: flexvolume-huawei.com/fuxivol
+  enable: true
+  finalizers:
+  - kubernetes.io/pvc-protection
+  labels:
+    failure-domain.beta.kubernetes.io/region: ap-southeast-2
+    failure-domain.beta.kubernetes.io/zone: ap-southeast-2a
+  name: cce-evs-jenkins  # replace to your name
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 11Gi

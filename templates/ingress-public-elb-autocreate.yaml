@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    #type: public
+    #bandwidth_name: given the name of bandwith
+    #bandwidth_chargemode: bandwidth/traffic
+    #bandwidth_size: bandwidth size in MB. Only affect under bandwidth charge mode.
+    #bandwidth_sharetype: PER/WHOLE. PER: Dedicated bandwidth, WHOLE: Shared bandwidth
+    #eip_type: 5_bgp
+    kubernetes.io/elb.autocreate: '{"type":"public","bandwidth_name":"cce-bandwidth-jenkins01","bandwidth_chargemode":"traffic","bandwidth_size":5,"bandwidth_sharetype":"PER","eip_type":"5_bgp"}'
+    kubernetes.io/elb.port: '443'
+  labels:
+    isExternal: "true"
+    zone: data
+  name: jenkins-ingress-public
+spec:
+  rules:
+  - host: public.jenkins.com
+    http:
+      paths:
+      - backend:
+          serviceName: jenkins-intra-vpc
+          servicePort: 8080
+        path: /
+        property:
+          ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+  tls:
+  - hosts:
+    - public.jenkins.com
+    secretName: sample-certs  #replace with your certificate secret name
